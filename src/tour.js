@@ -3,34 +3,34 @@
   const AV = (window.AV = window.AV || {});
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   // time, depth, VP x/y, drawing, guides, zoom, focus x/y, three-layer framing, upper region.
-  // Times are beats of the soundtrack (119.9 BPM, one bar = 2.0019 s): a move starts on its keyframe's beat; a blend arrives on it.
+  // Times are beats of the soundtrack (119.6 BPM, one bar = 2.0067 s): a move starts on its keyframe's beat; a blend arrives on it.
   const frames = [
     [0.000, 0, 800, 520, 1],
-    [2.002, 0, 800, 520, 1],
-    [4.004, 1.15, 800, 520, 0],
-    [6.006, 1.35, 1576, -380, 0],
-    [8.008, 1.4, 24, 640, 0],
-    [10.009, 1.1, 560, 1016, 0],
-    [12.011, 1.4, 1576, 1900, 0],
-    [14.013, 1.3, 24, 1420, 0],
-    [16.015, 1.45, 24, 1930, 0, 0, 1.5, 0.34, 0.68, 1, 0],
-    [17.016, 0.9, 560, 1320, 0, 0, 1.5, 0.34, 0.68, 1, 0],
-    [18.017, 1.45, 1040, 1990, 0, 0, 1.5, 0.34, 0.68, 1, 0],
-    [19.018, 0.95, 1576, 1360, 0, 0, 1.5, 0.34, 0.68, 1, 0],
-    [21.020, 1.45, 1576, -380, 0, 0, 1.5, 0.66, 0.35, 1, 1],
-    [22.021, 0.9, 1120, 640, 0, 0, 1.5, 0.66, 0.35, 1, 1],
-    [23.022, 1.4, 600, -380, 0, 0, 1.5, 0.66, 0.35, 1, 1],
-    [24.023, 0.95, 24, 620, 0, 0, 1.5, 0.66, 0.35, 1, 1],
-    [25.024, 1.1, 800, 520, 0],
-    [26.025, 1.15, 800, 520, 1, 0],
-    [26.525, 1.15, 800, 520, 1, 0.72],
-    [28.027, 1.35, 24, -380, 1, 0.72],
-    [30.029, 1.35, 1576, -380, 1, 0.72],
-    [32.030, 1.45, 1576, 1930, 1, 0.72],
-    [34.032, 1.45, 24, 1930, 1, 0.72],
-    [36.034, 1.1, 800, 520, 1, 0],
-    [38.036, 0, 800, 520, 1, 0],
-    [40.038, 0, 800, 520, 1, 0],
+    [2.007, 0, 800, 520, 1],
+    [4.013, 1.15, 800, 520, 0],
+    [6.020, 1.35, 1576, -380, 0],
+    [8.027, 1.4, 24, 640, 0],
+    [10.033, 1.1, 560, 1016, 0],
+    [12.040, 1.4, 1576, 1900, 0],
+    [14.047, 1.3, 24, 1420, 0],
+    [16.053, 1.45, 24, 1930, 0, 0, 1.5, 0.34, 0.68, 1, 0],
+    [17.057, 0.9, 560, 1320, 0, 0, 1.5, 0.34, 0.68, 1, 0],
+    [18.060, 1.45, 1040, 1990, 0, 0, 1.5, 0.34, 0.68, 1, 0],
+    [19.063, 0.95, 1576, 1360, 0, 0, 1.5, 0.34, 0.68, 1, 0],
+    [21.070, 1.45, 1576, -380, 0, 0, 1.5, 0.66, 0.35, 1, 1],
+    [22.073, 0.9, 1120, 640, 0, 0, 1.5, 0.66, 0.35, 1, 1],
+    [23.077, 1.4, 600, -380, 0, 0, 1.5, 0.66, 0.35, 1, 1],
+    [24.080, 0.95, 24, 620, 0, 0, 1.5, 0.66, 0.35, 1, 1],
+    [25.083, 1.1, 800, 520, 0],
+    [26.087, 1.15, 800, 520, 1, 0],
+    [26.588, 1.15, 800, 520, 1, 0.72],
+    [28.093, 1.35, 24, -380, 1, 0.72],
+    [30.100, 1.35, 1576, -380, 1, 0.72],
+    [32.107, 1.45, 1576, 1930, 1, 0.72],
+    [34.113, 1.45, 24, 1930, 1, 0.72],
+    [36.120, 1.1, 800, 520, 1, 0],
+    [38.127, 0, 800, 520, 1, 0],
+    [40.133, 0, 800, 520, 1, 0],
   ];
   const defaults = [0, 0, 800, 520, 1, 0, 1, 0.5, 0.5, 0, 0];
   const LOOP = frames[frames.length - 1][0];
@@ -40,7 +40,7 @@
   // rest of the segment is a hold. Depth-only segments (the opening reveal and the closing fold) use the whole segment.
   // Each segment holds first and moves last, so every keyframe time is the moment the camera lands. A move lasts one
   // beat, or two for long distances, and always leaves at least a beat of hold; depth-only segments use the whole segment.
-  const BEAT = 2.0019/4;
+  const BEAT = 1.00333/2;   // measured from the soundtrack's peaks: a big one every 1.00333 s, i.e. every second beat
   // Two kinds of segment. A "move" changes the viewpoint or the region framing: it starts ON its keyframe's beat with a hard
   // attack and glides to a stop, so the hit you see is the hit you hear. A "blend" changes only depth, colour or guides
   // (the unfold, the fold, the change to line drawing): it eases in and out across its segment and arrives on the beat.
@@ -69,7 +69,11 @@
   const blend = bezier(0.45, 0, 0.15, 1);     // depth, colour and guides: a soft ease into the beat
   const pose = i => [1,2,3,4,5,6,7,8,9,10].map(j => value(i,j));
   const mix = (a, b, e) => a.map((v, k) => v + (b[k]-v)*e);
+  // The keyframes sit on the beat grid; the soundtrack's waveform peaks come 55 ms after each beat starts, so the whole
+  // timeline is shifted by that much and every switch starts on a peak. The music cut starts at 28.598 s of the song.
+  const PHASE = 0.055;
   function sample(t) {
+    t -= PHASE;
     const lt = t >= 0 ? t % LOOP : ((t % LOOP) + LOOP) % LOOP;
     let i = 0;
     while (i < frames.length-1 && lt >= frames[i+1][0]) i++;
