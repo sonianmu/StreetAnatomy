@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>唐人街剖面</title>
+<meta name="description" content="单焦点纵深模拟：曼哈顿唐人街的一条长街。拖动改变消失点，滑块把平立面展开成纵深。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="stage" aria-label="纽约唐人街街道，单消失点纵深图">
+  <canvas id="gl" role="img" aria-label="曼哈顿唐人街的一条长单行街：铸铁楼、砖砌公寓和战前高楼夹着街道，防火梯、屋顶水塔，中英双语招牌层层叠叠，阳光从路口穿过街道，防火梯的影子落在砖墙上，路边摆着水果摊、鱼摊和报刊亭，近处有斑马线和一处道路施工，路上是黄色出租车，路面下是开敞的砖砌下水道和管廊，再往下是一座完整的地铁站：横跨轨道的闸机层、站台和停靠的列车。它们都与街道共用同一个消失点。"></canvas>
+  <canvas id="guides" aria-hidden="true"></canvas>
+  <header class="tag"><b id="tag-title">透视图</b></header>
+  <p class="fail" id="fail" hidden></p>
+  <p class="loading" id="loading">正在绘制街道…</p>
+</div>
+<form class="bar" id="bar" onsubmit="return false" aria-label="纵深与视点">
+  <button type="button" id="play" aria-pressed="false" title="空格">演示</button>
+  <label class="slider"><span>纵深</span><input id="depth" type="range" min="0" max="160" step="0.1" value="100" aria-label="纵深强度"><output id="depth-out">1.00</output></label>
+  <div class="grp" role="group" aria-label="视点预设">
+    <button type="button" data-view="flat">平立面</button>
+    <button type="button" data-view="deep">居中</button>
+    <button type="button" data-view="left">偏左</button>
+    <button type="button" data-view="right">偏右</button>
+    <button type="button" data-view="high">高</button>
+    <button type="button" data-view="low">低</button>
+    <button type="button" data-view="sewer">下水道</button>
+    <button type="button" data-view="mezz">闸机层</button>
+    <button type="button" data-view="platform">站台</button>
+  </div>
+  <button type="button" id="plate" aria-pressed="false" title="L">线稿</button>
+  <button type="button" id="clean" aria-pressed="false" title="H 隐藏界面，Esc 或双击恢复">净画面</button>
+  <button type="button" id="guide" aria-pressed="false" title="G">辅助线</button>
+</form>
+<script src="src/vendor/earcut.js"></script>
+<script src="src/vendor/fonts.js"></script>
+<script src="src/engine.js"></script>
+<script src="src/kit.js"></script>
+<script src="src/type.js"></script>
+<script src="src/signs.js"></script>
+<script src="src/facade.js"></script>
+<script src="src/chinatown.js"></script>
+<script src="src/sewer.js"></script>
+<script src="src/station.js"></script>
+<script src="src/street.js"></script>
+<script src="src/vehicles.js"></script>
+<script src="src/scene.js"></script>
+<script src="src/tour.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

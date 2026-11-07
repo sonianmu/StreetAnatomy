@@ -1,0 +1,25 @@
+:root{--paper:#efe9da;--ink:#14171c;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#cdd9d9;overflow:hidden;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;color:var(--ink)}
+#stage{position:fixed;inset:0;overflow:hidden;touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}
+#stage.drag{cursor:grabbing}
+#gl,#guides{position:absolute;inset:0;width:100%;height:100%;display:block}
+#guides{pointer-events:none}
+.tag{position:absolute;left:12px;top:12px;font-size:12px;letter-spacing:.08em;pointer-events:none}
+.tag b{display:block;background:var(--ink);color:#fff;padding:6px 10px;font-weight:600}
+.bar{position:fixed;left:0;right:0;margin:0 auto;width:max-content;bottom:10px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:center;max-width:calc(100vw - 24px);background:var(--paper);border:1px solid var(--ink);padding:5px 8px}
+.bar button{font-weight:600;font-size:12px;line-height:1;font-family:inherit;color:var(--ink);background:transparent;border:1px solid var(--ink);padding:6px 8px;cursor:pointer;min-height:28px}
+.bar button:hover{background:#ddd5c0}
+.bar button[aria-pressed=true]{background:var(--ink);color:#fff}
+.bar button:focus-visible,.bar input:focus-visible{outline:2px solid #c9523a;outline-offset:2px}
+.slider{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
+.slider input{width:min(170px,28vw);accent-color:var(--ink);height:28px}
+.slider output{font:12px ui-monospace,Menlo,monospace;min-width:2.6em;text-align:right}
+.grp{display:flex}
+.grp button+button{margin-left:-1.5px}
+.fail{position:absolute;left:50%;top:40%;transform:translateX(-50%);background:var(--paper);border:1px solid var(--ink);padding:14px 18px;max-width:80vw}
+.loading{position:absolute;left:0;right:0;top:46%;text-align:center;margin:0;color:#231f1d;font-size:14px;letter-spacing:.12em}
+@media (max-width:720px){.bar{gap:6px;padding:5px 6px}.bar button{padding:6px 7px}.grp{flex-wrap:wrap}}
+
+body.clean .bar,body.clean .tag{display:none}
+body.clean #stage{cursor:default}
